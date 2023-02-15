@@ -1,8 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('displays correct header text', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByText('Test Repo Details')).toBeInTheDocument();
 });
+
+test('displays repository description component', () => {
+  render(<App />)
+  expect(screen.getByLabelText('Repository description')).toBeInTheDocument()
+})
