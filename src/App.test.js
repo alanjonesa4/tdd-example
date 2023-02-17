@@ -10,3 +10,8 @@ test('displays repository description component', () => {
   render(<App />)
   expect(screen.getByLabelText('Repository description')).toBeInTheDocument()
 })
+
+test('displayes repo issues component', () => {
+  render(<App />)
+  expect(screen.getByLabelText('Repository issues')).toBeInTheDocument()
+})
