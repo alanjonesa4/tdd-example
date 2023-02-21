@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react"
 import RepoIssues from "../RepoIssues"
+import userEvent from "@testing-library/user-event";
 
 const queryResults = {
     repoIssues: {
@@ -19,8 +20,16 @@ const queryResults = {
     }
 }
 
+const mutationFn = jest.fn(arg => arg)
+
+const mutationResults = {
+    deleteIssue: {
+        triggerFn: mutationFn
+    }
+}
+
 test('Displays header text', () => {
-    render(<RepoIssues queryResults={{}} />)
+    render(<RepoIssues />)
     expect(screen.getByText('Repository Issues')).toBeInTheDocument()
 })
 
@@ -55,3 +64,32 @@ test('displays error screen when error is present', () => {
     render(<RepoIssues queryResults={loadingResults} />);
     expect(screen.getByText('This is an error')).toBeInTheDocument()
 })
+
+test('if no mutationResults, delete button does not appear', () => {
+    render(<RepoIssues queryResults={queryResults} />);
+    expect(screen.queryByText('Delete Repo Issue 1')).not.toBeInTheDocument()
+})
+
+test('displays delete button', () => {
+    render(<RepoIssues queryResults={queryResults} mutationResults={mutationResults} />);
+    expect(screen.getByText('Delete Repo Issue 1')).toBeInTheDocument()
+})
+
+test('when user clicks button, mutation function is triggered', () => {
+    render(<RepoIssues queryResults={queryResults} mutationResults={mutationResults}/>);
+    const deleteBtn = screen.getByText('Delete Repo Issue 1')
+    userEvent.click(deleteBtn)
+    expect(mutationFn).toBeCalledWith({ issueId: "repo-issue-1-ID"})
+})
+
+// mutation MyMutation {
+//     deleteIssue(input: {issueId: "I_kwDOI-XeLM5fA0dk"}) {
+//       repository {
+//         issues(first: 10) {
+//           nodes {
+//             id
+//           }
+//         }
+//       }
+//     }
+//   }
