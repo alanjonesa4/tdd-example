@@ -19,6 +19,11 @@ const queryResults = {
     }
 }
 
+test('Displays header text', () => {
+    render(<RepoIssues queryResults={{}} />)
+    expect(screen.getByText('Repository Issues')).toBeInTheDocument()
+})
+
 test('Displays Repo Issue Titles', () => {
     render(<RepoIssues queryResults={queryResults} />);
     expect(screen.getByText('Repo Issue 1')).toBeInTheDocument()

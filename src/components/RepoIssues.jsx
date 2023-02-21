@@ -10,12 +10,15 @@ const RepoIssues = ({queryResults}) => {
 
     return (
         <div aria-label="Repository issues">
-            {data?.map(({title, body, id}) => (
-                <div key={`repo-issue-${id}`}>
-                    <header>{title}</header>
-                    <p>{body}</p>
-                </div>
-            ))}
+            <p>Repository Issues</p>
+            <div>
+                {data?.map(({title, body, id}) => (
+                    <div key={`repo-issue-${id}`}>
+                        <header>{title}</header>
+                        <p>{body}</p>
+                    </div>
+                ))}
+            </div>
         </div>
         )
 }
