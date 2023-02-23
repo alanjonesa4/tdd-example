@@ -1,11 +1,51 @@
-const RepoIssues = ({queryResults = {}, mutationResults = {}}) => {
+import { queryProvider } from "@cheddartv/alice-components"
+import { gql } from '@apollo/client'
+
+const GET_REPO_ISSUES = gql`
+    query getRepoIssues {
+        repository(name: "tdd-example", owner: "alanjonesa4") {
+            id
+            issues(first: 10) {
+                nodes {
+                    body
+                    id
+                    title
+                }
+            }
+        }  
+    }
+`
+
+const DELETE_ISSUE = gql`
+mutation deleteIssue($issueId: ID!) {
+    deleteIssue(input: { issueId: $issueId }) {
+        repository {
+            id
+            issues(first: 10) {
+                nodes {
+                    body
+                    id
+                    title
+                }
+            }
+        }  
+    }
+}`
+
+export const formatter = data => {
+    return data?.repository?.issues?.nodes || null
+}
+
+export const BaseRepoIssues = ({queryResults = {}, mutationResults = {}}) => {
 
     const { repoIssues } = queryResults
     if (repoIssues?.loading) return <div>The data is loading</div>
     if (repoIssues?.error) return <div>{repoIssues?.error?.message}</div>
 
     const handleClick = (issueId) => {
-        mutationResults?.deleteIssue?.triggerFn({issueId})
+        console.log(mutationResults?.deleteIssue?.triggerFn)
+        console.log({issueId})
+        mutationResults?.deleteIssue?.triggerFn({ customVariables: {issueId}})
     }
 
     return (
@@ -23,4 +63,24 @@ const RepoIssues = ({queryResults = {}, mutationResults = {}}) => {
         </div>
         )
 }
-export default RepoIssues
+
+const args = {
+    queries: [
+        { 
+            query: GET_REPO_ISSUES,
+            getVariables: () => {},
+            formatter,
+            name: 'repoIssues'
+        }
+    ],
+    mutations: [
+        {
+            mutation: DELETE_ISSUE,
+            getVariables: () => {},
+            formatter: data => data,
+            name: 'deleteIssue'
+        }
+    ]
+}
+export default queryProvider(args, BaseRepoIssues)
+

@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '../test-utils.jsx'
 import App from './App';
 
 test('displays correct header text', () => {
@@ -11,7 +11,7 @@ test('displays repository description component', () => {
   expect(screen.getByLabelText('Repository description')).toBeInTheDocument()
 })
 
-test('displayes repo issues component', () => {
+test('displays repo issues component', () => {
   render(<App />)
-  expect(screen.getByLabelText('Repository issues')).toBeInTheDocument()
+  expect(screen.getByText('repoIssues')).toBeInTheDocument()
 })
