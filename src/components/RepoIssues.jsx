@@ -43,18 +43,16 @@ export const BaseRepoIssues = ({queryResults = {}, mutationResults = {}}) => {
     if (repoIssues?.error) return <div>{repoIssues?.error?.message}</div>
 
     const handleClick = (issueId) => {
-        console.log(mutationResults?.deleteIssue?.triggerFn)
-        console.log({issueId})
         mutationResults?.deleteIssue?.triggerFn({ customVariables: {issueId}})
     }
 
     return (
         <div aria-label="Repository issues">
-            <p>Repository Issues</p>
+            <p className="sub_head">Repository Issues</p>
             <div>
                 {repoIssues?.data?.map(({title, body, id}) => (
-                    <div key={`repo-issue-${id}`}>
-                        <header>{title}</header>
+                    <div key={`repo-issue-${id}`} className="issue">
+                        <p className="issue_head">{title}</p>
                         <p>{body}</p>
                         {mutationResults?.deleteIssue ? <button onClick={() => handleClick(id)}>{`Delete ${title}`}</button> : null}
                     </div>

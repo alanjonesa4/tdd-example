@@ -35,3 +35,36 @@
     transform: rotate(360deg);
   }
 }
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+}
+
+.sub_head {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.issue { 
+  text-align: left;
+  padding: 20px 50px;
+}
+
+.issue_head {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.create_issue {
+  display: grid;
+  grid-template-rows: 1fr;
+  gap: 30px;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.text_desc {
+  height: 300px;
+  font-family: 'Helvetica Neue', sans-serif
+}

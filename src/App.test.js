@@ -6,12 +6,12 @@ test('displays correct header text', () => {
   expect(screen.getByText('Test Repo Details')).toBeInTheDocument();
 });
 
-test('displays repository description component', () => {
-  render(<App />)
-  expect(screen.getByLabelText('Repository description')).toBeInTheDocument()
-})
-
 test('displays repo issues component', () => {
   render(<App />)
   expect(screen.getByText('repoIssues')).toBeInTheDocument()
+})
+
+test('displays createIssue component', () => {
+  render(<App />)
+  expect(screen.getByText('createIssue')).toBeInTheDocument()
 })
