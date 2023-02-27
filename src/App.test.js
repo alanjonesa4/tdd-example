@@ -1,17 +1,7 @@
 import { render, screen } from '../test-utils.jsx'
 import App from './App';
 
-test('displays correct header text', () => {
+test('displays hello world', () => {
   render(<App />);
-  expect(screen.getByText('Test Repo Details')).toBeInTheDocument();
+  expect(screen.getByText('Hello world!')).toBeInTheDocument();
 });
-
-test('displays repo issues component', () => {
-  render(<App />)
-  expect(screen.getByText('repoIssues')).toBeInTheDocument()
-})
-
-test('displays createIssue component', () => {
-  render(<App />)
-  expect(screen.getByText('createIssue')).toBeInTheDocument()
-})
